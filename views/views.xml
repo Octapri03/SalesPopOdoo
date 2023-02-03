@@ -1,0 +1,149 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="salespop.user_tree">
+      <field name="name">User tree</field>
+      <field name="model">res.partner</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="userName"/>
+          <field name="mail"/>
+          <field name="password"/>
+          <field name="numTel"/>
+          <field name="onSale"/>
+          <field name="favs"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="salespop.user_form">
+      <field name="name">User form</field>
+      <field name="model">res.partner</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="userName"/>
+              <field name="mail"/>
+              <field name="password"/>
+              <field name="numTel"/>
+              <field name="onSale"/>
+              <field name="favs"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Inherit -->
+
+    <record model="ir.ui.view" id="salespop.user_partner_list">
+      <field name="name">Salespop user partner</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <notebook>
+            <page string="SalesPop">
+            <group>
+              <sheet>
+                <field name="name"/>
+                <field name="userName"/>
+                <field name="mail"/>
+                <field name="password"/>
+                <field name="numTel"/>
+              </sheet>
+            </group>
+            </page>
+        </notebook>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="salespop.product_tree">
+      <field name="name">Producte tree</field>
+      <field name="model">salespop.product</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="price"/>
+          <field name="description"/>
+          <field name="ubication"/>
+          <field name="publicationDate"/>
+          <field name="seller"/>
+          <field name="fav"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="salespop.product_form">
+      <field name="name">Producte form</field>
+      <field name="model">salespop.product</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="price"/>
+              <field name="description"/>
+              <field name="ubication"/>
+              <field name="publicationDate"/>
+              <field name="seller"/>
+              <field name="fav"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="salespop.action_user_window">
+      <field name="name">Usuario</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="salespop.action_product_window">
+      <field name="name">Productos</field>
+      <field name="res_model">salespop.product</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="salespop.action_server">
+      <field name="name">salespop server</field>
+      <field name="model_id" ref="model_salespop_salespop"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="SalesPop" id="salespop.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Usuario" id="salespop.menu_1" parent="salespop.menu_root"/>
+    <menuitem name="Producto" id="salespop.menu_2" parent="salespop.menu_root"/>
+
+
+    <!-- actions -->
+
+    <menuitem name="Usuario" id="salespop.menu_salespop_user" parent="salespop.menu_1"
+              action="salespop.action_user_window"/>
+    <menuitem name="Producto" id="salespop.menu_salespop_product" parent="salespop.menu_2"
+              action="salespop.action_product_window"/>
+
+
+  </data>
+</odoo>
