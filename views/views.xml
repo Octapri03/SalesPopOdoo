@@ -2,7 +2,7 @@
   <data>
     <!-- explicit list view definition -->
 
-    <record model="ir.ui.view" id="salespop.user_tree">
+    <record model="ir.ui.view" id="salespop.view_player">
       <field name="name">User tree</field>
       <field name="model">res.partner</field>
       <field name="arch" type="xml">
@@ -23,7 +23,7 @@
       <field name="model">res.partner</field>
       <field name="arch" type="xml">
         <form>
-          <sheet>
+          <sheet String="Form User">
             <group>
               <field name="name"/>
               <field name="userName"/>
@@ -32,11 +32,50 @@
               <field name="numTel"/>
               <field name="onSale"/>
               <field name="favs"/>
+              <field name="isUserPop"/>
             </group>
           </sheet>
         </form>
       </field>
     </record>
+
+
+
+
+    <record id="salespop.player_wizard_action" model="ir.actions.act_window">
+      <field name="name">Create Player</field>
+      <field name="res_model">salespop.user_wizard</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+      <field name="binding_model_id" ref="base.model_res_partner"/>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="salespop.user_form_herencia">
+      <field name="name">User form</field>
+      <field name="model">res.partner</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet String="Form User">
+            <group>
+              <field name="name"/>
+              <field name="userName"/>
+              <field name="mail"/>
+              <field name="password"/>
+              <field name="numTel"/>
+              <field name="onSale"/>
+              <field name="favs"/>
+              <field name="isUserPop"/>
+              <button name="%(salespop.user_wizard_action)d" type="action" string="Create user" class="oe_highlight" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+
 
     <!-- Inherit -->
 
@@ -96,12 +135,36 @@
         </form>
       </field>
     </record>
-    <!-- actions opening views on models -->
 
-    <record model="ir.actions.act_window" id="salespop.action_user_window">
-      <field name="name">Usuario</field>
+
+
+
+
+    <!-- <record model="ir.actions.act_window" id="salespop.action_window_usuario">
+      <field name="name">salespop usuario</field>
       <field name="res_model">res.partner</field>
       <field name="view_mode">tree,form</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'tree', 'view_id': ref('salespop.user_tree')}),
+        (0, 0, {'view_mode': 'form', 'view_id': ref('salespop.user_form')}),]" />
+    </record>  -->
+
+
+
+
+
+
+
+    <!-- actions opening views on models -->
+
+
+    <record model="ir.actions.act_window" id="salespop.action_user_window">
+      <field name="name">salespop user</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'tree', 'view_id': ref('salespop.user_view')}),
+        (0, 0, {'view_mode': 'form', 'view_id': ref('salespop.user_form')}),]" />
     </record>
 
     <record model="ir.actions.act_window" id="salespop.action_product_window">
@@ -124,7 +187,7 @@
           "res_model": model._name,
         }
       </field>
-    </record>
+    </record>action_user_window
 -->
 
     <!-- Top menu item -->
